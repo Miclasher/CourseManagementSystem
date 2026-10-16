@@ -2,8 +2,6 @@
 
 Lab 1 (databases): a PostgreSQL model with soft delete, audit columns, stored procedures, functions, triggers, views and indexes, used from C# through **Repository + Unit of Work** where every query is a stored procedure call or a view/function read.
 
-Built on a trimmed Clean Architecture template (Domain / Application / Infrastructure / Web.Api / SharedKernel, custom CQRS handlers, `Result`, Scrutor, `.claude/skills`). Persistence is **Dapper + Npgsql**, not EF Core.
-
 ## Database
 
 SQL lives in `src/Infrastructure/Database/Scripts` (embedded, applied once each in name order at startup in Development; tracked in `schema_versions`):
