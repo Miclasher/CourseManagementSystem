@@ -4,20 +4,6 @@ Lab 1 (databases): a PostgreSQL model with soft delete, audit columns, stored pr
 
 Built on a trimmed Clean Architecture template (Domain / Application / Infrastructure / Web.Api / SharedKernel, custom CQRS handlers, `Result`, Scrutor, `.claude/skills`). Persistence is **Dapper + Npgsql**, not EF Core.
 
-## Documentation
-
-PlantUML sources in [`docs/diagrams`](docs/diagrams):
-
-| File | Content |
-|---|---|
-| `01-er-diagram.puml` | 19 entities, keys, relations, soft delete / audit markers |
-| `02-architecture.puml` | Layers and dependencies |
-| `03-uow-repository-class.puml` | Repository + Unit of Work classes |
-| `04-enroll-sequence.puml` | Deferred writes and commit at request end |
-| `05-use-cases.puml` | Actors and use cases |
-
-Render with `plantuml -tsvg docs/diagrams/*.puml` or any PlantUML plugin/server.
-
 ## Database
 
 SQL lives in `src/Infrastructure/Database/Scripts` (embedded, applied once each in name order at startup in Development; tracked in `schema_versions`):
