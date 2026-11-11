@@ -1,3 +1,7 @@
+x-db-limits: &db-limits
+  cpus: 4
+  mem_limit: 3g
+
 services:
   web-api:
     image: ${DOCKER_REGISTRY-}webapi
@@ -7,10 +11,24 @@ services:
       dockerfile: src/Web.Api/Dockerfile
     ports:
       - 5000:8080
+    depends_on:
+      - postgres
+      - mongo
+      - clickhouse
 
   postgres:
     image: postgres:17
     container_name: postgres
+    <<: *db-limits
+    shm_size: 1g
+    command: >
+      postgres
+      -c shared_buffers=1GB
+      -c effective_cache_size=2GB
+      -c work_mem=64MB
+      -c maintenance_work_mem=512MB
+      -c max_connections=200
+      -c max_parallel_workers_per_gather=4
     environment:
       - POSTGRES_DB=clean-architecture
       - POSTGRES_USER=postgres
@@ -19,6 +37,36 @@ services:
       - ./.containers/db:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  mongo:
+    image: mongo:8.0
+    container_name: mongo
+    <<: *db-limits
+    command: ["--wiredTigerCacheSizeGB", "1"]
+    volumes:
+      - ./.containers/mongo:/data/db
+    ports:
+      - 27017:27017
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.8
+    container_name: clickhouse
+    <<: *db-limits
+    environment:
+      - CLICKHOUSE_DB=cms
+      - CLICKHOUSE_USER=cms
+      - CLICKHOUSE_PASSWORD=cms
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - ./.containers/clickhouse:/var/lib/clickhouse
+      - ./deploy/clickhouse/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - 8123:8123
+      - 9000:9000
 
   seq:
     image: datalust/seq:2024.3

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Seeder</AssemblyName>
+    <RootNamespace>Seeder</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <!-- Dev tool: keep the default analyzer set instead of AnalysisMode=All, and do not fail the build on warnings. -->
+    <AnalysisMode>Default</AnalysisMode>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+    <!-- S2245/CA5394: deterministic pseudo-random data is the point of this tool; CA2007: console app, no sync context;
+         S2068: local dev credentials as defaults; S3358/IDE00xx: style; CA2100/S2077: SQL text is built from catalog metadata and constants, never from user input. -->
+    <NoWarn>$(NoWarn);CA5394;S2245;CA2007;CA2100;S2077;CA1303;CA1031;S1075;IDE0007;IDE0008;IDE0047;IDE0048;S3358;S2068;S6966;S3010</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" />
+    <PackageReference Include="Npgsql" />
+    <PackageReference Include="MongoDB.Driver" />
+    <PackageReference Include="ClickHouse.Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

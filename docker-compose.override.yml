@@ -3,5 +3,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
+      # Benchmarks: per-request Information logs (console + Seq) would dominate latency
+      - Serilog__MinimumLevel__Default=Warning
+      - Serilog__MinimumLevel__Override__Microsoft=Warning
     ports:
       - "8080"

@@ -4,6 +4,9 @@
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
     <PackageReference Include="Npgsql" />
+    <PackageReference Include="MongoDB.Driver" />
+    <PackageReference Include="AspNetCore.HealthChecks.MongoDb" />
+    <PackageReference Include="ClickHouse.Client" />
     <PackageReference Include="Scrutor" />
   </ItemGroup>
 
@@ -13,6 +16,7 @@
 
   <ItemGroup>
 	<InternalsVisibleTo Include="ArchitectureTests" />
+	<InternalsVisibleTo Include="Seeder" />
   </ItemGroup>
 
   <ItemGroup>

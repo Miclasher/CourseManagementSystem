@@ -3,6 +3,7 @@ using Application.Abstractions.Data;
 using Infrastructure.Authentication;
 using Infrastructure.Database;
 using Infrastructure.DomainEvents;
+using Infrastructure.Reports;
 using Infrastructure.Time;
 using Dapper;
 using Npgsql;
@@ -20,7 +21,8 @@ public static class DependencyInjection
         services
             .AddServices()
             .AddDatabase(configuration)
-            .AddHealthChecks(configuration);
+            .AddHealthChecks(configuration)
+            .AddReports(configuration);
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {

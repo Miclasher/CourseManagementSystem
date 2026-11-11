@@ -9,4 +9,5 @@ public static class Tags
     public const string Assignments = "Assignments";
     public const string Quizzes = "Quizzes";
     public const string Reviews = "Reviews";
+    public const string Reports = "Reports";
 }
